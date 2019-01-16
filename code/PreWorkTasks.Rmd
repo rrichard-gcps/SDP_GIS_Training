@@ -1,0 +1,120 @@
+---
+title: "GIS With R: Pre-Workshop Tasks"
+ipsum_meta:
+  # twitter_card: "Summary info for the Twitter Card"
+  # twitter_site: "\\@sitehandle"
+  # twitter_creator: "\\@creatorhandle"
+  # og_url: "https\\://example.com/open/graph/finalURLfor/this"
+  og_description: "Strategic Data Project Joint Winter Workshop 2019"
+  # og_image: "https\\://example.com/open/graph/imageURLfor/this"
+output: 
+  hrbrthemes::ipsum:
+    toc: true
+---
+```{r include=FALSE}
+knitr::opts_chunk$set(fig.retina=2)
+```
+
+```{r ipsum_setup, message=FALSE, warning=FALSE, cache=FALSE, echo=FALSE}
+library(hrbrthemes)
+library(tidyverse)
+update_geom_font_defaults(font_rc)
+```
+# Welcome
+
+This document contains all information related to the 2019 SDP GIS With R Workshop in Atlanta, GA (February 7, 2019). Please refer to this document to find all the information you'll need to get set up and get the most out of this workshop, including software, R packages, and additional resources. 
+
+## Instructors
+
+Roland Richard, Affiliation  <a href="https://" target="_blank"><i class="fas fa-link"></i></a> <a href="https://github.com/rrichard-gcps" target="_blank"><i class="fab fa-github"></i></a> <a href="https://twitter.com/rorich" target="_blank"><i class="fab fa-twitter"></i></a>
+
+Jared Knowles, Affiliation <a href="https://mywebpage.com" target="_blank"><i class="fas fa-link"></i></a> <a href="https://github.com/username" target="_blank"><i class="fab fa-github"></i></a> <a href="https://twitter.com/username" target="_blank"><i class="fab fa-twitter"></i></a>
+
+
+## What do I need to do before the workshop?
+
+You will need to follow these setup instructions: 
+
+1. Install/upgrade software
+1. Install R packages
+1. Install Git & GitHub *(Optional)
+1. Create an example map with the tmap package
+
+
+## 1. <u>**Install or Upgrade Software**</u>     
+
+In this workshop, we will use R and [RStudio](https://www.rstudio.com/products/rstudio/). RStudio is highly recommended, because it makes it easier for most users to work with R Markdown. 
+
+### Install R
+
+* A [recent version of R](https://cran.rstudio.com/) (>= 3.5.1 "Feather Spray") is recommended. You can check your version from the R Console:
+
+```{r}
+R.version.string
+```
+
+
+#### Install RStudio
+
+* [RStudio](https://www.rstudio.com/products/rstudio/download/#download) (>= 1.1.463)  is recommended.
+
+
+#### Upgrading your system
+
+For more help installing or upgrading R and RStudio, please read through these links:
+
+1. [Chapter 5 in **Happy Git with R**](http://happygitwithr.com/install-r-rstudio.html)
+1. [Maintaining R from **What They Forgot to Teach You About R**](https://whattheyforgot.org/maintaining-r.html)
+    - See ["How to transfer your library when updating R"](https://whattheyforgot.org/maintaining-r.html#how-to-transfer-your-library-when-updating-r)
+    
+
+## 2. <u>**Install R packages**</u>     
+For this workshop, you'll need to install several R packages. See below for a guide to installing the packages we will use. Run this code from your R console to install all of the necessary packages:
+
+```r
+pkgs_from_cran <- c("sf", "tmap", "tidyverse", "tidycensus", 
+                    "leaflet", "mapview","shiny", "flexdashboard", 
+                    "spData", "remotes")
+```
+
+```r
+install.packages(pkgs_from_cran, dependencies = TRUE)
+```
+
+```r
+pkgs_from_gh <- c("Nowosad/spDataLarge")
+```
+
+
+```r
+remotes::install_github(pkgs_from_gh, dependencies = TRUE)
+```
+
+### Check all package installs {#all}
+
+```r
+is_installed(c(pkgs_from_cran, pkgs_from_gh))
+```
+
+## 3. <u>**Install Git & Github**</u>     
+
+Placeholder
+
+
+## 4. <u>**Create Example Map**</u>   
+Let's create a quick map of the United States. 
+After installing the packages in the preceding step, the following lines of code should create the map shown below:
+
+```{r example map,  message=FALSE, warning=FALSE, cache=FALSE, echo=FALSE}
+library(tmap)
+library(sf)
+library(spData)
+tm_shape(us_states, projection = 2163) + tm_polygons("REGION") + tm_layout(frame = FALSE)
+```
+
+
+
+```{r bib, include=FALSE}
+# KEEP THIS AT THE END OF THE DOCUMENT TO GENERATE A LOCAL bib FILE FOR PKGS USED
+knitr::write_bib(sub("^package:", "", grep("package", search(), value=TRUE)), file='man/skeleton.bib')
+```
