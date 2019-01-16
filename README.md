@@ -1,4 +1,4 @@
-# GIS With R: Strategic Data Project Joint Winter Workshop 2019
+# GIS With R:<br>Strategic Data Project Joint Winter Workshop 2019
 This repository contains web guides, R code, and sample
 data to help education data analysts answer questions about geographic location and spatial processes in education. 
 This material can also be accessed on the
