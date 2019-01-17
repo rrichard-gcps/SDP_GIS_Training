@@ -16,9 +16,8 @@ knitr::opts_chunk$set(fig.retina=2)
 ```
 
 ```{r ipsum_setup, message=FALSE, warning=FALSE, cache=FALSE, echo=FALSE}
-library(hrbrthemes)
 library(tidyverse)
-update_geom_font_defaults(font_rc)
+# update_geom_font_defaults(font_rc)
 ```
 # Welcome
 
@@ -28,7 +27,7 @@ This document contains all information related to the 2019 SDP GIS With R Worksh
 
 Roland Richard, Affiliation  <a href="https://" target="_blank"><i class="fas fa-link"></i></a> <a href="https://github.com/rrichard-gcps" target="_blank"><i class="fab fa-github"></i></a> <a href="https://twitter.com/rorich" target="_blank"><i class="fab fa-twitter"></i></a>
 
-Jared Knowles, Affiliation <a href="https://mywebpage.com" target="_blank"><i class="fas fa-link"></i></a> <a href="https://github.com/username" target="_blank"><i class="fab fa-github"></i></a> <a href="https://twitter.com/username" target="_blank"><i class="fab fa-twitter"></i></a>
+Jared Knowles, Affiliation <a href="https://www.jaredknowles.com/" target="_blank"><i class="fas fa-link"></i></a> <a href="https://github.com/jknowles" target="_blank"><i class="fab fa-github"></i></a> <a href="https://twitter.com/jknowles" target="_blank"><i class="fab fa-twitter"></i></a>
 
 
 ## What do I need to do before the workshop?
@@ -36,9 +35,8 @@ Jared Knowles, Affiliation <a href="https://mywebpage.com" target="_blank"><i cl
 You will need to follow these setup instructions: 
 
 1. Install/upgrade software
-1. Install R packages
-1. Install Git & GitHub *(Optional)
-1. Create an example map with the tmap package
+2. Install R packages
+3. Create an example map with the tmap package
 
 
 ## 1. <u>**Install or Upgrade Software**</u>     
@@ -63,7 +61,6 @@ R.version.string
 
 For more help installing or upgrading R and RStudio, please read through these links:
 
-1. [Chapter 5 in **Happy Git with R**](http://happygitwithr.com/install-r-rstudio.html)
 1. [Maintaining R from **What They Forgot to Teach You About R**](https://whattheyforgot.org/maintaining-r.html)
     - See ["How to transfer your library when updating R"](https://whattheyforgot.org/maintaining-r.html#how-to-transfer-your-library-when-updating-r)
     
@@ -73,8 +70,8 @@ For this workshop, you'll need to install several R packages. See below for a gu
 
 ```r
 pkgs_from_cran <- c("sf", "tmap", "tidyverse", "tidycensus", 
-                    "leaflet", "mapview","shiny", "flexdashboard", 
-                    "spData", "remotes")
+                    "leaflet", "mapview","shiny", "ggplot2",
+                    "spData", "sf)
 ```
 
 ```r
@@ -96,12 +93,7 @@ remotes::install_github(pkgs_from_gh, dependencies = TRUE)
 is_installed(c(pkgs_from_cran, pkgs_from_gh))
 ```
 
-## 3. <u>**Install Git & Github**</u>     
-
-Placeholder
-
-
-## 4. <u>**Create Example Map**</u>   
+## 3. <u>**Create Example Map**</u>   
 Let's create a quick map of the United States. 
 After installing the packages in the preceding step, the following lines of code should create the map shown below:
 
@@ -109,7 +101,26 @@ After installing the packages in the preceding step, the following lines of code
 library(tmap)
 library(sf)
 library(spData)
-tm_shape(us_states, projection = 2163) + tm_polygons("REGION") + tm_layout(frame = FALSE)
+tm_shape(us_states, projection = 2163) + tm_polygons("REGION") + 
+  tm_layout(frame = FALSE)
+```
+
+
+## Example Tigris File Map
+
+
+```{r}
+library(tigris)
+ga_districts <- tigris::school_districts("Georgia", type = "unified", 
+                                         year = 2015)
+ga_districts <- sf::st_as_sf(ga_districts)
+
+ggplot() +
+  geom_sf(data = ga_districts) +
+  theme(axis.text = element_blank()) + 
+  labs(title = "Georgia Unified School Districts in 2015") +
+    theme_bw()
+
 ```
 
 
